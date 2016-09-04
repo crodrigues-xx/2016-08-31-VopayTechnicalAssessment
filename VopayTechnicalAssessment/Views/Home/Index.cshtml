@@ -63,12 +63,14 @@ Github repository: https://github.com/crodrigues-xx/2016-08-31-VopayTechnicalAss
         var dt = new Date();
         
         for (var i = 0; i < result.list.length; i++) {
-            dt.setDate(dt.getDate() + 1);
+            
             html += '<div style="float: left; margin-left: 20px; text-align: center; align-content: center;">';
             html += '<div>' + dt.toDateString() + '</div>';
             html += '<div><img src="http://openweathermap.org/img/w/' + result.list[i].weather[0].icon + '.png" /></div>';
             html += '<div>' + result.list[i].temp.day + ' &#8451</div>';
             html += '</div>'
+
+            dt.setDate(dt.getDate() + 1);
         }
         $('#weatherForecast').after(html);
     });
