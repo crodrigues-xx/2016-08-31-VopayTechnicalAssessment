@@ -25,16 +25,12 @@ Github repository: https://github.com/crodrigues-xx/2016-08-31-VopayTechnicalAss
 <p>
     <div id="sortedUnique">2. Sorted Unique: </div>
 </p>
+<br/>
+<p>
+    <div id="weatherForecast">3. OpenWeatherMap 5 day weather forecast</div>
+</p>
+<div style="clear: both;"></div>
 
-
-<div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-    </div>
-</div>
 
 @section scripts {
     
@@ -62,9 +58,21 @@ Github repository: https://github.com/crodrigues-xx/2016-08-31-VopayTechnicalAss
     var sortedUnique = getUnique(sorted);
     document.getElementById('sortedUnique').innerHTML += sortedUnique;
 
-    $.ajax('http://api.openweathermap.org/data/2.5/forecast?appid=02eadfe62d4ef9627c914fc791e3cba7&q=vancouver,ca&units=metric&mode=json', function (result) {
-        //http://openweathermap.org/city/6173331
+    $.ajax('http://api.openweathermap.org/data/2.5/forecast/daily?q=Vancouver,CA&mode=json&units=metric&cnt=5&appid=02eadfe62d4ef9627c914fc791e3cba7').done(function (result) {
+        var html = '<br/>';
+        var dt = new Date();
+        
+        for (var i = 0; i < result.list.length; i++) {
+            dt.setDate(dt.getDate() + 1);
+            html += '<div style="float: left; margin-left: 20px; text-align: center; align-content: center;">';
+            html += '<div>' + dt.toDateString() + '</div>';
+            html += '<div><img src="http://openweathermap.org/img/w/' + result.list[i].weather[0].icon + '.png" /></div>';
+            html += '<div>' + result.list[i].temp.day + ' &#8451</div>';
+            html += '</div>'
+        }
+        $('#weatherForecast').after(html);
     });
+
 </script>
 
 }
